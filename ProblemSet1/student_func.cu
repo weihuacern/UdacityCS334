@@ -50,6 +50,15 @@ void rgba_to_greyscale(const uchar4* const rgbaImage,
   //First create a mapping from the 2D block and grid locations
   //to an absolute 2D location in the image, then use that to
   //calculate a 1D offset
+  int x = threadIdx.x + blockIdx.x * blockDim.x;
+  int y = threadIdx.y + blockIdx.y * blockDim.y;
+  if ( x < numRows && y < numCols )
+  {
+    int index = x + numRows * y;
+    uchar4 rgbcolor = rgbaImage[index];
+    unsigned char grey = (unsigned char)( 0.299f * rgbcolor.x + 0.587f * rgbcolor.y + 0.114f * rgbcolor.z );
+    greyImage[index] = grey;
+  }
 }
 
 void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_rgbaImage,
@@ -57,9 +66,19 @@ void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_r
 {
   //You must fill in the correct sizes for the blockSize and gridSize
   //currently only one block with one thread is being launched
-  const dim3 blockSize(1, 1, 1);  //TODO
-  const dim3 gridSize( 1, 1, 1);  //TODO
+  //my 1080 information
+  //Maximum number of threads per multiprocessor:  2048
+  //Maximum number of threads per block:           1024
+  //Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
+  //Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
+
+  int block_x = 512, block_y = 512, block_z = 32;
+  const dim3 blockSize(block_x, block_y, block_z);  //TODO
+  int grid_x = numRows/block_x + 1 , grid_y = numCols/block_y + 1;
+  const dim3 gridSize( grid_x, grid_y, 2);  //TODO
   rgba_to_greyscale<<<gridSize, blockSize>>>(d_rgbaImage, d_greyImage, numRows, numCols);
   
-  cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
+  cudaDeviceSynchronize();
+  cudaGetLastError();
+  //checkCudaErrors(cudaGetLastError());
 }
