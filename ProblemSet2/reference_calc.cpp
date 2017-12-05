@@ -24,7 +24,7 @@ void channelConvolution(const unsigned char* const channel,
         {
           //Find the global image position for this filter position
           //clamp to boundary of the image
-		      int image_r = std::min(std::max(r + filter_r, 0), static_cast<int>(numRows - 1));
+          int image_r = std::min(std::max(r + filter_r, 0), static_cast<int>(numRows - 1));
           int image_c = std::min(std::max(c + filter_c, 0), static_cast<int>(numCols - 1));
 
           float image_value = static_cast<float>(channel[image_r * numCols + image_c]);

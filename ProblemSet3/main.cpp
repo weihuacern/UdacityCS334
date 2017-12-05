@@ -30,7 +30,8 @@ void your_histogram_and_prefixsum(const float* const d_luminance,
                                   const size_t numBins);
 
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
   float *d_luminance;
   unsigned int *d_cdf;
 
@@ -46,30 +47,30 @@ int main(int argc, char **argv) {
 
   switch (argc)
   {
-	case 2:
-	  input_file = std::string(argv[1]);
-	  output_file = "HW3_output.png";
-	  reference_file = "HW3_reference.png";
-	  break;
-	case 3:
-	  input_file  = std::string(argv[1]);
+    case 2:
+      input_file = std::string(argv[1]);
+      output_file = "HW3_output.png";
+      reference_file = "HW3_reference.png";
+      break;
+      case 3:
+      input_file  = std::string(argv[1]);
       output_file = std::string(argv[2]);
-	  reference_file = "HW3_reference.png";
-	  break;
-	case 4:
-	  input_file  = std::string(argv[1]);
+      reference_file = "HW3_reference.png";
+      break;
+    case 4:
+      input_file  = std::string(argv[1]);
       output_file = std::string(argv[2]);
-	  reference_file = std::string(argv[3]);
-	  break;
-	case 6:
-	  useEpsCheck=true;
-	  input_file  = std::string(argv[1]);
-	  output_file = std::string(argv[2]);
-	  reference_file = std::string(argv[3]);
-	  perPixelError = atof(argv[4]);
+      reference_file = std::string(argv[3]);
+      break;
+    case 6:
+      useEpsCheck=true;
+      input_file  = std::string(argv[1]);
+      output_file = std::string(argv[2]);
+      reference_file = std::string(argv[3]);
+      perPixelError = atof(argv[4]);
       globalError   = atof(argv[5]);
-	  break;
-	default:
+      break;
+    default:
       std::cerr << "Usage: ./HW3 input_file [output_filename] [reference_filename] [perPixelError] [globalError]" << std::endl;
       exit(1);
   }
@@ -89,7 +90,8 @@ int main(int argc, char **argv) {
   cudaDeviceSynchronize(); checkCudaErrors(cudaGetLastError());
   int err = printf("Your code ran in: %f msecs.\n", timer.Elapsed());
 
-  if (err < 0) {
+  if (err < 0) 
+  {
     //Couldn't print! Probably the student closed stdout - bad news
     std::cerr << "Couldn't print timing information! STDOUT Closed!" << std::endl;
     exit(1);
@@ -103,8 +105,9 @@ int main(int argc, char **argv) {
   //check results and output the tone-mapped image
   postProcess(output_file, numRows, numCols, min_logLum, max_logLum);
 
-  for (size_t i = 1; i < numCols * numRows; ++i) {
-	min_logLum = std::min(h_luminance[i], min_logLum);
+  for (size_t i = 1; i < numCols * numRows; ++i) 
+  {
+    min_logLum = std::min(h_luminance[i], min_logLum);
     max_logLum = std::max(h_luminance[i], max_logLum);
   }
 

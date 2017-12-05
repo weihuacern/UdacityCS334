@@ -136,7 +136,8 @@ __global__ void tonemap(
 void preProcess(float** d_luminance, unsigned int** d_cdf,
                 size_t *numRows, size_t *numCols,
                 unsigned int *numberOfBins,
-                const std::string &filename) {
+                const std::string &filename) 
+{
   //make sure the context initializes ok
   checkCudaErrors(cudaFree(0));
 
@@ -152,7 +153,8 @@ void preProcess(float** d_luminance, unsigned int** d_cdf,
   float *blue  = new float[numPixels];
 
   //Remeber image is loaded BGR
-  for (size_t i = 0; i < numPixels; ++i) {
+  for (size_t i = 0; i < numPixels; ++i) 
+  {
     blue[i]  = imgPtr[3 * i + 0];
     green[i] = imgPtr[3 * i + 1];
     red[i]   = imgPtr[3 * i + 2];
@@ -206,7 +208,8 @@ void preProcess(float** d_luminance, unsigned int** d_cdf,
 
 void postProcess(const std::string& output_file, 
                  size_t numRows, size_t numCols,
-                 float min_log_Y, float max_log_Y) {
+                 float min_log_Y, float max_log_Y) 
+{
   const int numPixels = numRows__ * numCols__;
 
   const int numThreads = 192;
@@ -260,7 +263,8 @@ void postProcess(const std::string& output_file,
   //recombine the image channels
   float *imageHDR = new float[numPixels * 3];
 
-  for (int i = 0; i < numPixels; ++i) {
+  for (int i = 0; i < numPixels; ++i) 
+  {
     imageHDR[3 * i + 0] = h_blue[i];
     imageHDR[3 * i + 1] = h_green[i];
     imageHDR[3 * i + 2] = h_red[i];
