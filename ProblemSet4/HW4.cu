@@ -157,23 +157,29 @@ __global__ void remove_redness_from_coordinates(
 
 
 
-struct splitChannels : thrust::unary_function<uchar4, thrust::tuple<unsigned char, unsigned char, unsigned char> >{
+struct splitChannels : thrust::unary_function<uchar4, thrust::tuple<unsigned char, unsigned char, unsigned char> >
+{
   __host__ __device__
-  thrust::tuple<unsigned char, unsigned char, unsigned char> operator()(uchar4 pixel) {
+  thrust::tuple<unsigned char, unsigned char, unsigned char> operator()(uchar4 pixel) 
+  {
     return thrust::make_tuple(pixel.x, pixel.y, pixel.z);
   }
 };
 
-struct combineChannels : thrust::unary_function<thrust::tuple<unsigned char, unsigned char, unsigned char>, uchar4> {
+struct combineChannels : thrust::unary_function<thrust::tuple<unsigned char, unsigned char, unsigned char>, uchar4> 
+{
   __host__ __device__
-  uchar4 operator()(thrust::tuple<unsigned char, unsigned char, unsigned char> t) {
+  uchar4 operator()(thrust::tuple<unsigned char, unsigned char, unsigned char> t) 
+  {
     return make_uchar4(thrust::get<0>(t), thrust::get<1>(t), thrust::get<2>(t), 255);
   }
 };
 
-struct combineResponses : thrust::unary_function<float, thrust::tuple<float, float, float> > {
+struct combineResponses : thrust::unary_function<float, thrust::tuple<float, float, float> > 
+{
   __host__ __device__
-  float operator()(thrust::tuple<float, float, float> t) {
+  float operator()(thrust::tuple<float, float, float> t) 
+  {
     return thrust::get<0>(t) * thrust::get<1>(t) * thrust::get<2>(t);
   }
 };
@@ -196,7 +202,8 @@ void preProcess(unsigned int **inputVals,
                 unsigned int **outputPos,
                 size_t &numElem,
                 const std::string& filename,
-				const std::string& templateFilename) {
+                const std::string& templateFilename) 
+{
   //make sure the context initializes ok
   checkCudaErrors(cudaFree(0));
 
@@ -336,8 +343,8 @@ void preProcess(unsigned int **inputVals,
 void postProcess(const unsigned int* const outputVals,
                  const unsigned int* const outputPos,
                  const size_t numElems,
-                 const std::string& output_file){
-
+                 const std::string& output_file)
+{
   thrust::device_vector<unsigned char> d_output_red = d_red;
 
   const dim3 blockSize(256, 1, 1);
@@ -378,4 +385,3 @@ void postProcess(const unsigned int* const outputVals,
   d_blue.clear(); d_blue.shrink_to_fit();
   d_green.clear(); d_green.shrink_to_fit();
 }
-

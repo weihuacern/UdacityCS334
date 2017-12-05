@@ -17,7 +17,7 @@ void preProcess(unsigned int **inputVals,
                 unsigned int **outputPos,
                 size_t &numElems,
                 const std::string& filename,
-				const std::string& template_file);
+                const std::string& template_file);
 
 void postProcess(const unsigned int* const outputVals,
                  const unsigned int* const outputPos,
@@ -30,7 +30,8 @@ void your_sort(unsigned int* const inputVals,
                unsigned int* const outputPos,
                const size_t numElems);
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
   unsigned int *inputVals;
   unsigned int *inputPos;
   unsigned int *outputVals;
@@ -48,19 +49,19 @@ int main(int argc, char **argv) {
 
   switch (argc)
   {
-	case 3:
-	  input_file  = std::string(argv[1]);
+    case 3:
+      input_file  = std::string(argv[1]);
       template_file = std::string(argv[2]);
-	  output_file = "HW4_output.png";
-	  break;
-	case 4:
-	  input_file  = std::string(argv[1]);
+      output_file = "HW4_output.png";
+      break;
+    case 4:
+      input_file  = std::string(argv[1]);
       template_file = std::string(argv[2]);
-	  output_file = std::string(argv[3]);
-	  break;
-	default:
-          std::cerr << "Usage: ./HW4 input_file template_file [output_filename]" << std::endl;
-          exit(1);
+      output_file = std::string(argv[3]);
+      break;
+    default:
+      std::cerr << "Usage: ./HW4 input_file template_file [output_filename]" << std::endl;
+      exit(1);
   }
   //load the image and give us our input and output pointers
   preProcess(&inputVals, &inputPos, &outputVals, &outputPos, numElems, input_file, template_file);
@@ -76,7 +77,8 @@ int main(int argc, char **argv) {
   printf("\n");
   int err = printf("Your code ran in: %f msecs.\n", timer.Elapsed());
 
-  if (err < 0) {
+  if (err < 0) 
+  {
     //Couldn't print! Probably the student closed stdout - bad news
     std::cerr << "Couldn't print timing information! STDOUT Closed!" << std::endl;
     exit(1);
@@ -112,8 +114,8 @@ int main(int argc, char **argv) {
   thrust::host_vector<unsigned int> h_outputPos(numElems);
 
   reference_calculation(&h_inputVals[0], &h_inputPos[0],
-						&h_outputVals[0], &h_outputPos[0],
-						numElems);
+                        &h_outputVals[0], &h_outputPos[0],
+                        numElems);
 
   //postProcess(valsPtr, posPtr, numElems, reference_file);
 
