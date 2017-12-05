@@ -72,7 +72,8 @@ void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage, uchar4 * const d_r
   //Max dimension size of a thread block (x,y,z): (1024, 1024, 64)
   //Max dimension size of a grid size    (x,y,z): (2147483647, 65535, 65535)
 
-  int block_x = 512, block_y = 512, block_z = 32;
+  //int block_x = 512, block_y = 512, block_z = 32;
+  int block_x = 128, block_y = 128, block_z = 8;                                                                                                                                                       
   const dim3 blockSize(block_x, block_y, block_z);  //TODO
   int grid_x = numRows/block_x + 1 , grid_y = numCols/block_y + 1;
   const dim3 gridSize( grid_x, grid_y, 2);  //TODO
