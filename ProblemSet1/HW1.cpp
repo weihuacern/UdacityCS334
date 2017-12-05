@@ -22,13 +22,15 @@ size_t numCols() { return imageRGBA.cols; }
 //on both the host and device
 void preProcess(uchar4 **inputImage, unsigned char **greyImage,
                 uchar4 **d_rgbaImage, unsigned char **d_greyImage,
-                const std::string &filename) {
+                const std::string &filename) 
+{
   //make sure the context initializes ok
   checkCudaErrors(cudaFree(0));
 
   cv::Mat image;
   image = cv::imread(filename.c_str(), CV_LOAD_IMAGE_COLOR);
-  if (image.empty()) {
+  if (image.empty()) 
+  {
     std::cerr << "Couldn't open file: " << filename << std::endl;
     exit(1);
   }
@@ -40,7 +42,8 @@ void preProcess(uchar4 **inputImage, unsigned char **greyImage,
 
   //This shouldn't ever happen given the way the images are created
   //at least based upon my limited understanding of OpenCV, but better to check
-  if (!imageRGBA.isContinuous() || !imageGrey.isContinuous()) {
+  if (!imageRGBA.isContinuous() || !imageGrey.isContinuous()) 
+  {
     std::cerr << "Images aren't continuous!! Exiting." << std::endl;
     exit(1);
   }
@@ -61,7 +64,8 @@ void preProcess(uchar4 **inputImage, unsigned char **greyImage,
   d_greyImage__ = *d_greyImage;
 }
 
-void postProcess(const std::string& output_file, unsigned char* data_ptr) {
+void postProcess(const std::string& output_file, unsigned char* data_ptr) 
+{
   cv::Mat output(numRows(), numCols(), CV_8UC1, (void*)data_ptr);
 
   //output the image

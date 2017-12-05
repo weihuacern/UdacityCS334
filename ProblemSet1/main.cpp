@@ -16,7 +16,8 @@ void your_rgba_to_greyscale(const uchar4 * const h_rgbaImage,
 //include the definitions of the above functions for this homework
 #include "HW1.cpp"
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
   uchar4        *h_rgbaImage, *d_rgbaImage;
   unsigned char *h_greyImage, *d_greyImage;
 
@@ -67,7 +68,8 @@ int main(int argc, char **argv) {
 
   int err = printf("Your code ran in: %f msecs.\n", timer.Elapsed());
 
-  if (err < 0) {
+  if (err < 0) 
+  {
     //Couldn't print! Probably the student closed stdout - bad news
     std::cerr << "Couldn't print timing information! STDOUT Closed!" << std::endl;
     exit(1);
