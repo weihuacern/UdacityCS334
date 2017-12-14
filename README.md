@@ -7,7 +7,13 @@ export PATH=$PATH:/usr/local/cuda-8.0/bin
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
 ```
 
-Compile cuda:
+# Lesson 1
 ```
 nvcc -o cube cube.cu
+```
+
+# Lesson 2
+```
+nvcc -o hello_threadIdx hello_threadIdx.cu                                                                                                                                                                  
+nvcc -o hello_blockIdx hello_blockIdx.cu
 ```
