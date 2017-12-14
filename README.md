@@ -16,4 +16,7 @@ nvcc -o cube cube.cu
 ```
 nvcc -o hello_threadIdx hello_threadIdx.cu                                                                                                                                                                  
 nvcc -o hello_blockIdx hello_blockIdx.cu
+nvcc -o associative associative.cu
+nvcc -o memory memory.cu
+nvcc -o atomics atomics.cu
 ```
