@@ -37,6 +37,7 @@ void channelConvolution(const unsigned char* const channel,
       channelBlurred[r * numCols + c] = result;
     }
   }
+  return ;
 }
 
 void referenceCalculation(const uchar4* const rgbaImage, uchar4 *const outputImage,
@@ -80,4 +81,6 @@ void referenceCalculation(const uchar4* const rgbaImage, uchar4 *const outputIma
   delete[] redBlurred;
   delete[] greenBlurred;
   delete[] blueBlurred;
+
+  return ;
 }

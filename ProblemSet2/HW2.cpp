@@ -119,6 +119,7 @@ void postProcess(const std::string& output_file, uchar4* data_ptr)
   cv::cvtColor(output, imageOutputBGR, CV_RGBA2BGR);
   //output the image
   cv::imwrite(output_file.c_str(), imageOutputBGR);
+  return ;
 }
 
 void cleanUp(void)
@@ -126,11 +127,12 @@ void cleanUp(void)
   cudaFree(d_inputImageRGBA__);
   cudaFree(d_outputImageRGBA__);
   delete[] h_filter__;
+  return ;
 }
 
 
 // An unused bit of code showing how to accomplish this assignment using OpenCV.  It is much faster 
-//    than the naive implementation in reference_calc.cpp.
+// than the naive implementation in reference_calc.cpp.
 void generateReferenceImage(std::string input_file, std::string reference_file, int kernel_size)
 {
   cv::Mat input = cv::imread(input_file);
@@ -138,4 +140,5 @@ void generateReferenceImage(std::string input_file, std::string reference_file, 
   cv::Mat reference = cv::imread(input_file);
   cv::GaussianBlur(input, reference, cv::Size2i(kernel_size, kernel_size),0);
   cv::imwrite(reference_file, reference);
+  return ;
 }
