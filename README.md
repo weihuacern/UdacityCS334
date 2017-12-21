@@ -28,6 +28,10 @@ nvcc -o atomics atomics.cu
 ```
 
 # Lesson 3 Fundamental GPU Algorithms (Reduce, Scan, Histogram)
+
+Compare the global and shared memory in reduce, 0 for global, 1 for shared. In theory, the shared one will be 3 times faster than global version. But we cannot reach that because of the computation is not saturated. 
 ```
 nvcc -o reduce reduce.cu
+./reduce 0
+./reduce 1
 ```
