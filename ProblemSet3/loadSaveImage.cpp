@@ -53,6 +53,7 @@ void loadImageHDR(const std::string &filename,
 
   *numRows = image.rows;
   *numCols = image.cols;
+  return ;
 }
 
 void loadImageRGBA(const std::string &filename,
@@ -94,6 +95,7 @@ void loadImageRGBA(const std::string &filename,
 
   *numRows = image.rows;
   *numCols = image.cols;
+  return ;
 }
 
 void saveImageRGBA(const uchar4* const image,
@@ -108,6 +110,7 @@ void saveImageRGBA(const uchar4* const image,
   cv::cvtColor(imageRGBA, imageOutputBGR, CV_RGBA2BGR);
   //output the image
   cv::imwrite(output_file.c_str(), imageOutputBGR);
+  return ;
 }
 
 //output an exr file
@@ -125,4 +128,5 @@ void saveImageHDR(const float* const image,
   imageHDR = imageHDR * 255;
 
   cv::imwrite(output_file.c_str(), imageHDR);
+  return ;
 }

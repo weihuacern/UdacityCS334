@@ -56,6 +56,7 @@ __global__ void rgb_to_xyY(
     d_y[ image_index_1d ]     = y;
     d_log_Y[ image_index_1d ] = log_Y;
   }
+  return ;
 }
 
 /* Copied from Mike's IPython notebook *
@@ -81,6 +82,7 @@ __global__ void normalize_cdf(
 
     d_output_cdf[ global_index_1d ] = output_value;
   }
+  return ;
 }
 
 
@@ -128,6 +130,7 @@ __global__ void tonemap(
     d_g_new[ image_index_1d ] = g_new;
     d_b_new[ image_index_1d ] = b_new;
   }
+  return ;
 }
 
 
@@ -204,6 +207,8 @@ void preProcess(float** d_luminance, unsigned int** d_cdf,
   delete[] red;
   delete[] green;
   delete[] blue;
+
+  return ;
 }
 
 void postProcess(const std::string& output_file, 
@@ -279,6 +284,7 @@ void postProcess(const std::string& output_file,
 
   //cleanup
   checkCudaErrors(cudaFree(d_cdf_normalized));
+  return ;
 }
 
 void cleanupGlobalMemory(void)
@@ -287,4 +293,5 @@ void cleanupGlobalMemory(void)
   checkCudaErrors(cudaFree(d_y__));
   checkCudaErrors(cudaFree(d_logY__));
   checkCudaErrors(cudaFree(d_cdf__));
+  return ;
 }
