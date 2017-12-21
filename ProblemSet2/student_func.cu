@@ -125,7 +125,6 @@ void gaussian_blur(const unsigned char* const inputChannel,
 
   const int2 p = make_int2( blockIdx.x * blockDim.x + threadIdx.x, blockIdx.y * blockDim.y + threadIdx.y );
   const int m = p.y * numCols + p.x;
-
   if ( p.x >= numCols || p.y >= numRows ) return;
 
   float color = 0.0f;
@@ -174,6 +173,15 @@ void separateChannels(const uchar4* const inputImageRGBA,
   // {
   //     return;
   // }
+
+  const int2 p = make_int2( blockIdx.x * blockDim.x + threadIdx.x, blockIdx.y * blockDim.y + threadIdx.y );
+  const int m = p.y * numCols + p.x;
+  if ( p.x >= numCols || p.y >= numRows ) return;
+
+  redChannel[m] = inputImageRGBA[m].x;
+  greenChannel[m] = inputImageRGBA[m].y;
+  blueChannel[m] = inputImageRGBA[m].z;
+  return ;
 }
 
 //This kernel takes in three color channels and recombines them
