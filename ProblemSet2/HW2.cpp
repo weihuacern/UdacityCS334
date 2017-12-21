@@ -28,13 +28,14 @@ void preProcess(uchar4 **h_inputImageRGBA, uchar4 **h_outputImageRGBA,
                 unsigned char **d_greenBlurred,
                 unsigned char **d_blueBlurred,
                 float **h_filter, int *filterWidth,
-                const std::string &filename) {
-
+                const std::string &filename) 
+{
   //make sure the context initializes ok
   checkCudaErrors(cudaFree(0));
 
   cv::Mat image = cv::imread(filename.c_str(), CV_LOAD_IMAGE_COLOR);
-  if (image.empty()) {
+  if (image.empty()) 
+  {
     std::cerr << "Couldn't open file: " << filename << std::endl;
     exit(1);
   }
@@ -46,7 +47,8 @@ void preProcess(uchar4 **h_inputImageRGBA, uchar4 **h_outputImageRGBA,
 
   //This shouldn't ever happen given the way the images are created
   //at least based upon my limited understanding of OpenCV, but better to check
-  if (!imageInputRGBA.isContinuous() || !imageOutputRGBA.isContinuous()) {
+  if (!imageInputRGBA.isContinuous() || !imageOutputRGBA.isContinuous())
+  {
     std::cerr << "Images aren't continuous!! Exiting." << std::endl;
     exit(1);
   }
@@ -78,8 +80,10 @@ void preProcess(uchar4 **h_inputImageRGBA, uchar4 **h_outputImageRGBA,
 
   float filterSum = 0.f; //for normalization
 
-  for (int r = -blurKernelWidth/2; r <= blurKernelWidth/2; ++r) {
-    for (int c = -blurKernelWidth/2; c <= blurKernelWidth/2; ++c) {
+  for (int r = -blurKernelWidth/2; r <= blurKernelWidth/2; ++r)
+  {
+    for (int c = -blurKernelWidth/2; c <= blurKernelWidth/2; ++c)
+    {
       float filterValue = expf( -(float)(c * c + r * r) / (2.f * blurKernelSigma * blurKernelSigma));
       (*h_filter)[(r + blurKernelWidth/2) * blurKernelWidth + c + blurKernelWidth/2] = filterValue;
       filterSum += filterValue;
@@ -88,8 +92,10 @@ void preProcess(uchar4 **h_inputImageRGBA, uchar4 **h_outputImageRGBA,
 
   float normalizationFactor = 1.f / filterSum;
 
-  for (int r = -blurKernelWidth/2; r <= blurKernelWidth/2; ++r) {
-    for (int c = -blurKernelWidth/2; c <= blurKernelWidth/2; ++c) {
+  for (int r = -blurKernelWidth/2; r <= blurKernelWidth/2; ++r)
+  {
+    for (int c = -blurKernelWidth/2; c <= blurKernelWidth/2; ++c)
+    {
       (*h_filter)[(r + blurKernelWidth/2) * blurKernelWidth + c + blurKernelWidth/2] *= normalizationFactor;
     }
   }
@@ -101,9 +107,12 @@ void preProcess(uchar4 **h_inputImageRGBA, uchar4 **h_outputImageRGBA,
   checkCudaErrors(cudaMemset(*d_redBlurred,   0, sizeof(unsigned char) * numPixels));
   checkCudaErrors(cudaMemset(*d_greenBlurred, 0, sizeof(unsigned char) * numPixels));
   checkCudaErrors(cudaMemset(*d_blueBlurred,  0, sizeof(unsigned char) * numPixels));
+  
+  return ;
 }
 
-void postProcess(const std::string& output_file, uchar4* data_ptr) {
+void postProcess(const std::string& output_file, uchar4* data_ptr)
+{
   cv::Mat output(numRows(), numCols(), CV_8UC4, (void*)data_ptr);
 
   cv::Mat imageOutputBGR;

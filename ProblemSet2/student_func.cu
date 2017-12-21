@@ -122,7 +122,14 @@ void gaussian_blur(const unsigned char* const inputChannel,
   // {
   //     return;
   // }
-  
+
+  //const int2 p = ( blockIdx.x * blockDim.x + threadIdx.x, blockIdx.y * blockDim.y + threadIdx.y );
+  //const int m = p.y * numCols + p.x;
+
+  //if ( p.x >= numCols || p.y >= numRows ) return;
+
+  //float color = 0.0f;
+
   // NOTE: If a thread's absolute position 2D position is within the image, but some of
   // its neighbors are outside the image, then you will need to be extra careful. Instead
   // of trying to read such a neighbor value from GPU memory (which won't work because
