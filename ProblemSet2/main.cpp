@@ -96,7 +96,7 @@ int main(int argc, char **argv)
   }
 
   //check results and output the blurred image
-  size_t numPixels = numRows()*numCols();
+  size_t numPixels = numRows() * numCols();
   //copy the output back to the host
   checkCudaErrors(cudaMemcpy(h_outputImageRGBA, d_outputImageRGBA__, sizeof(uchar4) * numPixels, cudaMemcpyDeviceToHost));
 
