@@ -35,3 +35,7 @@ nvcc -o reduce reduce.cu
 ./reduce 0
 ./reduce 1
 ```
+
+```
+nvcc -o histo histo.cu
+```
